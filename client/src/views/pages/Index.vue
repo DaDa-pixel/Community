@@ -89,101 +89,52 @@
         </el-card>
       </el-col>
       <el-col :span="16">
-        <el-card shadow="hover" class="system-card">
+        <!-- 快捷操作面板 -->
+        <el-card shadow="hover" class="quick-actions-card">
           <div slot="header" class="card-header">
-            <i class="el-icon-s-data"></i>
-            <span>系统信息</span>
+            <i class="el-icon-thumb"></i>
+            <span>快捷操作</span>
           </div>
-          <div class="system-info">
+          <div class="quick-actions-content">
             <el-row :gutter="20">
-              <el-col :span="12">
-                <div class="info-card">
-                  <div class="info-icon" style="background-color: #67C23A;">
-                    <i class="el-icon-s-platform"></i>
+              <el-col :span="6" v-for="(action, index) in quickActions" :key="index">
+                <el-card shadow="hover" class="action-card" @click.native="handleAction(action)">
+                  <div class="action-icon">
+                    <i :class="action.icon"></i>
                   </div>
-                  <div class="info-content">
-                    <div class="info-title">系统版本</div>
-                    <div class="info-value">v2.5.0</div>
-                  </div>
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div class="info-card">
-                  <div class="info-icon" style="background-color: #409EFF;">
-                    <i class="el-icon-s-order"></i>
-                  </div>
-                  <div class="info-content">
-                    <div class="info-title">社团总数</div>
-                    <div class="info-value">{{ stats.clubCount }}</div>
-                  </div>
-                </div>
+                  <div class="action-title">{{ action.title }}</div>
+                </el-card>
               </el-col>
             </el-row>
-            <el-row :gutter="20" class="mt-20">
-              <el-col :span="12">
-                <div class="info-card">
-                  <div class="info-icon" style="background-color: #E6A23C;">
-                    <i class="el-icon-s-custom"></i>
-                  </div>
-                  <div class="info-content">
-                    <div class="info-title">在线用户</div>
-                    <div class="info-value">{{ stats.onlineCount }}</div>
-                  </div>
-                </div>
-              </el-col>
-              <el-col :span="12">
-                <div class="info-card">
-                  <div class="info-icon" style="background-color: #F56C6C;">
-                    <i class="el-icon-s-opportunity"></i>
-                  </div>
-                  <div class="info-content">
-                    <div class="info-title">活动总数</div>
-                    <div class="info-value">{{ stats.activityCount }}</div>
-                  </div>
-                </div>
-              </el-col>
-            </el-row>
+          </div>
+        </el-card>
 
-            <div class="system-chart mt-20">
-              <div class="chart-title">系统资源使用情况</div>
-              <div class="chart-container">
-                <div class="chart-item">
-                  <el-progress
-                      type="dashboard"
-                      :percentage="75"
-                      :color="colors[0]"
-                      :width="120">
-                    <template #default="{ percentage }">
-                      <span class="percentage-value">{{ percentage }}%</span>
-                      <span class="percentage-label">CPU</span>
-                    </template>
-                  </el-progress>
+        <!-- 近期活动日历 -->
+        <el-card shadow="hover" class="mt-15">
+          <div slot="header" class="card-header">
+            <i class="el-icon-date"></i>
+            <span>近期重要活动</span>
+          </div>
+          <div class="recent-activities-content">
+            <el-calendar>
+              <template #dateCell="{data}">
+                <div class="calendar-day">
+                  <div class="day-number">{{ data.day.split('-')[2] }}</div>
+                  <div v-if="hasEvent(data.day)" class="event-marker"></div>
                 </div>
-                <div class="chart-item">
-                  <el-progress
-                      type="dashboard"
-                      :percentage="58"
-                      :color="colors[1]"
-                      :width="120">
-                    <template #default="{ percentage }">
-                      <span class="percentage-value">{{ percentage }}%</span>
-                      <span class="percentage-label">内存</span>
-                    </template>
-                  </el-progress>
-                </div>
-                <div class="chart-item">
-                  <el-progress
-                      type="dashboard"
-                      :percentage="32"
-                      :color="colors[2]"
-                      :width="120">
-                    <template #default="{ percentage }">
-                      <span class="percentage-value">{{ percentage }}%</span>
-                      <span class="percentage-label">存储</span>
-                    </template>
-                  </el-progress>
-                </div>
-              </div>
+              </template>
+            </el-calendar>
+            <div class="upcoming-events">
+              <h4>即将开始的活动</h4>
+              <el-timeline>
+                <el-timeline-item
+                    v-for="(event, index) in upcomingEvents"
+                    :key="index"
+                    :timestamp="event.time"
+                    placement="top">
+                  {{ event.title }} - {{ event.location }}
+                </el-timeline-item>
+              </el-timeline>
             </div>
           </div>
         </el-card>
@@ -191,6 +142,84 @@
     </el-row>
   </div>
 </template>
+
+<script>
+import { getLoginUser, getSysNoticeList } from "../../api";
+
+export default {
+  data() {
+    return {
+      loginUser: {},
+      sysNotices: [],
+      currentDate: this.formatDate(new Date()),
+      stats: {
+        noticeCount: 5,
+        userCount: 128,
+        activeCount: 24,
+        clubCount: 36,
+        onlineCount: 42,
+        activityCount: 87
+      },
+      quickActions: [
+        { title: '发布通知', icon: 'el-icon-bell', path: '/notices' },
+        { title: '入团申请', icon: 'el-icon-tickets', path: '/applyLogs' },
+        { title: '成员管理', icon: 'el-icon-user', path: '/members' },
+        { title: '活动管理', icon: 'el-icon-date', path: '/activities' }
+      ],
+      upcomingEvents: [
+        { title: '春季招新', time: '2023-03-15 14:00', location: '学生活动中心' },
+        { title: '社团负责人会议', time: '2023-03-20 10:00', location: '会议室A' },
+        { title: '文艺汇演', time: '2023-04-01 19:00', location: '大礼堂' }
+      ]
+    }
+  },
+  mounted() {
+    getLoginUser(this.$store.state.token).then(resp => {
+      this.loginUser = resp.data;
+    });
+
+    getSysNoticeList(this.$store.state.token).then(resp => {
+      this.sysNotices = resp.data;
+    });
+
+    // 模拟获取统计数据
+    this.getSystemStats();
+  },
+  methods: {
+    formatDate(date) {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const week = ['日', '一', '二', '三', '四', '五', '六'][date.getDay()];
+      return `${year}年${month}月${day}日 星期${week}`;
+    },
+    formatTime(timeStr) {
+      if (!timeStr) return '';
+      return timeStr.split(' ')[0];
+    },
+    getSystemStats() {
+      // 这里应该是从API获取系统统计数据
+      // 模拟数据
+      setTimeout(() => {
+        this.stats = {
+          noticeCount: this.sysNotices.length,
+          userCount: Math.floor(Math.random() * 100) + 100,
+          activeCount: Math.floor(Math.random() * 20) + 10,
+          clubCount: Math.floor(Math.random() * 30) + 20,
+          onlineCount: Math.floor(Math.random() * 50) + 20,
+          activityCount: Math.floor(Math.random() * 100) + 50
+        };
+      }, 500);
+    },
+    hasEvent(date) {
+      return this.upcomingEvents.some(event => event.time.includes(date));
+    },
+    handleAction(action) {
+      this.$router.push(action.path);
+    }
+  }
+}
+</script>
 
 <style scoped>
 .fater-body-show {
@@ -202,8 +231,8 @@
   margin-bottom: 15px;
 }
 
-.mt-20 {
-  margin-top: 20px;
+.mt-15 {
+  margin-top: 15px;
 }
 
 /* 欢迎卡片样式 */
@@ -310,163 +339,71 @@
   margin-right: 5px;
 }
 
-/* 系统信息卡片样式 */
-.system-card {
+/* 快捷操作面板样式 */
+.quick-actions-card {
   border: none;
 }
 
-.system-info {
+.quick-actions-content {
   padding: 10px;
 }
 
-.info-card {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.info-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1);
-}
-
-.info-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  color: white;
-  font-size: 22px;
-}
-
-.info-content {
-  flex: 1;
-}
-
-.info-title {
-  font-size: 14px;
-  color: #909399;
-  margin-bottom: 5px;
-}
-
-.info-value {
-  font-size: 22px;
-  font-weight: bold;
-  color: #303133;
-}
-
-/* 图表区域样式 */
-.system-chart {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
-}
-
-.chart-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #303133;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ebeef5;
-}
-
-.chart-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.chart-item {
-  margin: 10px;
+.action-card {
+  cursor: pointer;
   text-align: center;
+  transition: all 0.3s;
+  border: none;
+  background-color: #f9f9f9;
 }
 
-.percentage-value {
-  display: block;
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.action-icon {
   font-size: 24px;
-  font-weight: bold;
-  color: #303133;
+  color: #409EFF;
+  margin-bottom: 10px;
 }
 
-.percentage-label {
-  display: block;
+.action-title {
   font-size: 14px;
-  color: #909399;
-  margin-top: 5px;
+  color: #606266;
+}
+
+/* 近期活动日历样式 */
+.recent-activities-content {
+  padding: 10px;
+}
+
+.calendar-day {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-number {
+  font-size: 14px;
+}
+
+.event-marker {
+  width: 6px;
+  height: 6px;
+  background-color: #F56C6C;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.upcoming-events {
+  margin-top: 20px;
+}
+
+.upcoming-events h4 {
+  font-size: 15px;
+  color: #606266;
+  margin-bottom: 15px;
+  padding-left: 10px;
 }
 </style>
-
-<script>
-import { getLoginUser, getSysNoticeList } from "../../api";
-
-export default {
-  data() {
-    return {
-      loginUser: {},
-      sysNotices: [],
-      currentDate: this.formatDate(new Date()),
-      stats: {
-        noticeCount: 5,
-        userCount: 128,
-        activeCount: 24,
-        clubCount: 36,
-        onlineCount: 42,
-        activityCount: 87
-      },
-      colors: [
-        { color: '#67C23A', percentage: 20 },
-        { color: '#E6A23C', percentage: 40 },
-        { color: '#F56C6C', percentage: 80 }
-      ]
-    }
-  },
-  mounted() {
-    getLoginUser(this.$store.state.token).then(resp => {
-      this.loginUser = resp.data;
-    });
-
-    getSysNoticeList(this.$store.state.token).then(resp => {
-      this.sysNotices = resp.data;
-    });
-
-    // 模拟获取统计数据
-    this.getSystemStats();
-  },
-  methods: {
-    formatDate(date) {
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
-      const week = ['日', '一', '二', '三', '四', '五', '六'][date.getDay()];
-      return `${year}年${month}月${day}日 星期${week}`;
-    },
-    formatTime(timeStr) {
-      if (!timeStr) return '';
-      return timeStr.split(' ')[0];
-    },
-    getSystemStats() {
-      // 这里应该是从API获取系统统计数据
-      // 模拟数据
-      setTimeout(() => {
-        this.stats = {
-          noticeCount: this.sysNotices.length,
-          userCount: Math.floor(Math.random() * 100) + 100,
-          activeCount: Math.floor(Math.random() * 20) + 10,
-          clubCount: Math.floor(Math.random() * 30) + 20,
-          onlineCount: Math.floor(Math.random() * 50) + 20,
-          activityCount: Math.floor(Math.random() * 100) + 50
-        };
-      }, 500);
-    }
-  }
-}
-</script>

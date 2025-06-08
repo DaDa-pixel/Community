@@ -147,15 +147,29 @@
       </div>
     </el-dialog>
 
-    <div class="footer-links">
-      <a href="#">关于我们</a>
-      <a href="#">帮助中心</a>
-      <a href="#">隐私政策</a>
-      <a href="#">服务条款</a>
+    <div class="footer-container">
+      <div class="footer-links">
+        <a @click="showDialog('about')">关于我们</a>
+        <a @click="showDialog('help')">帮助中心</a>
+        <a @click="showDialog('privacy')">隐私政策</a>
+        <a @click="showDialog('terms')">服务条款</a>
+      </div>
+      <div class="copyright">
+        © 2025 校园社团管理系统--贵州大学开发组 版权所有
+      </div>
     </div>
-    <div class="copyright">
-      © 2023 校园社团管理系统 版权所有
-    </div>
+
+    <!-- 底部链接弹窗 -->
+    <el-dialog
+        :title="dialogTitle"
+        :visible.sync="dialogVisible"
+        width="50%"
+        center>
+      <div v-html="dialogContent"></div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -196,6 +210,85 @@ export default {
           message: '用户密码必须输入',
           trigger: 'blur'
         }],
+      },
+      // 底部链接弹窗相关数据
+      dialogVisible: false,
+      dialogTitle: '',
+      dialogContent: '',
+      dialogContents: {
+        about: {
+          title: '关于我们',
+          content: `
+            <h3>校园社团管理系统简介</h3>
+            <p>本系统是为高校学生社团管理量身打造的一站式解决方案，旨在连接学生、社团和管理员，提供高效便捷的管理平台。</p>
+            <h3>主要功能</h3>
+            <ul>
+              <li>社团信息管理</li>
+              <li>成员管理</li>
+              <li>活动组织</li>
+              <li>资源分配</li>
+              <li>数据分析</li>
+            </ul>
+            <h3>联系我们</h3>
+            <p>邮箱：contact@schoolclub.com</p>
+            <p>电话：400-123-4567</p>
+          `
+        },
+        help: {
+          title: '帮助中心',
+          content: `
+            <h3>常见问题</h3>
+            <h4>如何注册账号？</h4>
+            <p>点击登录页面的"没有账号？注册一个"链接，填写相关信息即可完成注册。</p>
+
+            <h4>忘记密码怎么办？</h4>
+            <p>请联系系统管理员重置密码，或使用绑定的邮箱找回密码。</p>
+
+            <h4>如何创建社团？</h4>
+            <p>学生用户可以在"社团管理"页面提交创建社团申请，管理员审核通过后即可创建。</p>
+          `
+        },
+        privacy: {
+          title: '隐私政策',
+          content: `
+            <h3>个人信息收集</h3>
+            <p>我们仅收集必要的个人信息，包括但不限于：</p>
+            <ul>
+              <li>账号信息（用户名、密码）</li>
+              <li>个人基本信息（姓名、学号、联系方式）</li>
+              <li>社团活动参与记录</li>
+            </ul>
+
+            <h3>信息使用</h3>
+            <p>收集的信息将用于：</p>
+            <ul>
+              <li>系统功能正常运行</li>
+              <li>社团管理及活动组织</li>
+              <li>数据统计分析</li>
+            </ul>
+
+            <h3>信息安全</h3>
+            <p>我们采取严格措施保护您的个人信息安全，未经授权不会向第三方披露。</p>
+          `
+        },
+        terms: {
+          title: '服务条款',
+          content: `
+            <h3>使用规则</h3>
+            <ol>
+              <li>用户应遵守国家法律法规和学校规章制度</li>
+              <li>不得利用系统从事任何违法或不正当活动</li>
+              <li>不得干扰系统的正常运行</li>
+              <li>不得侵犯他人合法权益</li>
+            </ol>
+
+            <h3>责任限制</h3>
+            <p>系统提供的服务按"现状"提供，不保证服务的及时性、安全性和准确性。</p>
+
+            <h3>条款修改</h3>
+            <p>我们保留随时修改服务条款的权利，修改后的条款将在系统中公布后生效。</p>
+          `
+        }
       }
     }
   },
@@ -205,15 +298,15 @@ export default {
       // 可以根据不同角色设置不同的placeholder提示
       switch(newVal) {
         case 'student':
-          this.loginForm.userName = '';
+          this.loginForm.userName = 'student';
           this.loginForm.passWord = '';
           break;
         case 'leader':
-          this.loginForm.userName = '';
+          this.loginForm.userName = 'leader';
           this.loginForm.passWord = '';
           break;
         case 'admin':
-          this.loginForm.userName = '';
+          this.loginForm.userName = 'admin';
           this.loginForm.passWord = '';
           break;
       }
@@ -281,6 +374,12 @@ export default {
       }).catch(err => {
         this.$message.error('注册失败: ' + (err.message || '未知错误'));
       });
+    },
+    // 显示底部链接弹窗
+    showDialog(type) {
+      this.dialogTitle = this.dialogContents[type].title
+      this.dialogContent = this.dialogContents[type].content
+      this.dialogVisible = true
     }
   }
 }
@@ -290,13 +389,14 @@ export default {
 .login-page {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
   background: linear-gradient(135deg, #1a8cff, #00cccc);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  overflow: hidden;
-  position: relative;
+  overflow: auto;
+  padding: 20px 0;
+  box-sizing: border-box;
 }
 
 .login-container {
@@ -308,6 +408,8 @@ export default {
   align-items: center;
   padding: 20px;
   z-index: 1;
+  margin: auto;
+  flex: 1;
 }
 
 .login-left {
@@ -448,24 +550,35 @@ export default {
   margin-top: 20px;
 }
 
+.footer-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  z-index: 1;
+}
+
 .footer-links {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
   color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
-  z-index: 1;
 }
 
 .footer-links a {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 5px 10px;
+  border-radius: 4px;
 }
 
 .footer-links a:hover {
   color: white;
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .copyright {
@@ -473,7 +586,6 @@ export default {
   color: rgba(255, 255, 255, 0.7);
   margin-top: 10px;
   font-size: 13px;
-  z-index: 1;
 }
 
 @media (max-width: 992px) {
@@ -484,6 +596,12 @@ export default {
   .login-body {
     width: 90%;
     max-width: 450px;
+    margin: 20px auto;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 }
 
@@ -540,5 +658,39 @@ export default {
 .el-dialog__title {
   color: white !important;
   font-weight: bold;
+}
+
+/* 底部链接弹窗内容样式 */
+/deep/ .el-dialog__body {
+  max-height: 60vh;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+/deep/ .el-dialog__body h3 {
+  color: #008080;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+/deep/ .el-dialog__body h4 {
+  color: #008080;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+/deep/ .el-dialog__body p,
+/deep/ .el-dialog__body ul,
+/deep/ .el-dialog__body ol {
+  margin: 10px 0;
+}
+
+/deep/ .el-dialog__body ul,
+/deep/ .el-dialog__body ol {
+  padding-left: 20px;
+}
+
+/deep/ .el-dialog__body li {
+  margin: 5px 0;
 }
 </style>
