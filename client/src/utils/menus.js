@@ -1,4 +1,4 @@
-import {getLoginUser} from "../api";
+import {getLoginUser} from "@/api";
 
 // 系统管理员
 export const adminMenus = {
@@ -10,7 +10,7 @@ export const adminMenus = {
             path: '/index',
             name: '系统首页',
             icon: "fa fa-home",
-            component: require("../views/pages/Index.vue").default
+            component: require("../views/pages/index.vue").default
         },
         {
             path: '/users',
@@ -73,7 +73,7 @@ export const manMenus = {
             path: '/index',
             name: '系统首页',
             icon: "fa fa-home",
-            component: require("../views/pages/Index.vue").default
+            component: require("../views/pages/index.vue").default
         },
         {
             path: '/teams',
@@ -123,7 +123,7 @@ export const memYMenus = {
             path: '/index',
             name: '系统首页',
             icon: "fa fa-home",
-            component: require("../views/pages/Index.vue").default
+            component: require("../views/pages/index.vue").default
         },
         {
             path: '/teams',
@@ -161,7 +161,7 @@ export const memNMenus = {
             path: '/index',
             name: '系统首页',
             icon: "fa fa-home",
-            component: require("../views/pages/Index.vue").default
+            component: require("../views/pages/index.vue").default
         }
     ]
 };
