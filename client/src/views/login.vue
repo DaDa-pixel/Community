@@ -342,15 +342,15 @@ export default {
     getRoleType(role) {
       // 根据角色返回对应的type值
       switch(role) {
-        case 'student': return 1;
-        case 'leader': return 2;
-        case 'admin': return 3;
-        default: return 1;
+        case 'student': return 2;
+        case 'leader': return 1;
+        case 'admin': return 0;
+        default: return 2;
       }
     },
     addInfo() {
       // 注册时默认设置为学生角色
-      this.usersForm.type = 1;
+      this.usersForm.type = 2;
 
       addUsers(this.usersForm).then(resp => {
         if(resp.code == 0) {

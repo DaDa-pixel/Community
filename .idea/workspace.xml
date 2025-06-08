@@ -71,7 +71,7 @@
       <recent name="D:\Community_SY\client\public" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Application">
+  <component name="RunManager" selected="npm.serve">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Community_System" />
       <method v="2">
@@ -126,7 +126,7 @@
       <workItem from="1749309325375" duration="114000" />
       <workItem from="1749309628029" duration="536000" />
       <workItem from="1749310176280" duration="1812000" />
-      <workItem from="1749363080146" duration="5180000" />
+      <workItem from="1749363080146" duration="8108000" />
     </task>
     <servers />
   </component>
@@ -144,7 +144,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
