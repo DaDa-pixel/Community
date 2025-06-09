@@ -52,6 +52,7 @@ public class R extends HashMap<String, Object> {
         return r;
     }
 
+
     /**
      * 处理成功，返回指定的消息
      * @param msg 指定消息

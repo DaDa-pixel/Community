@@ -21,6 +21,13 @@ import self.cases.teams.msg.PageData;
 import self.cases.teams.entity.ApplyLogs;
 import self.cases.teams.service.ApplyLogsService;
 
+import java.util.List;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static self.cases.teams.msg.R.SUCCESS_MSG;
+
 /**
  * 系统请求响应控制器
  * 申请记录
@@ -52,6 +59,8 @@ public class ApplyLogsController extends BaseController {
         ApplyLogs applyLogs = applyLogsService.getOne(id);
         return R.successData(applyLogs);
     }
+
+
 
     @GetMapping("/page")
     @ResponseBody
@@ -119,4 +128,15 @@ public class ApplyLogsController extends BaseController {
         applyLogsService.delete(applyLogs);
         return R.success();
     }
+    @GetMapping("/userClubs")
+    @ResponseBody
+    public R getUserClubs(String userId) {  // 将id改为userId
+        Log.info("查找指定参加学生的社团名称，ID:{}", userId);
+        List<Map<String, Object>> clubList = applyLogsService.getUserClubs(userId);
+        List<String> clubNames = clubList.stream()
+                .map(map -> (String)map.get("name"))
+                .collect(Collectors.toList());
+        return R.successData(clubNames);
+    }
+
 }

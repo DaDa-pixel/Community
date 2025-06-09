@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import self.cases.teams.entity.ApplyLogs;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +18,23 @@ import java.util.Map;
  */
 @Repository("applyLogsDao")
 public interface ApplyLogsDao extends BaseMapper<ApplyLogs> {
+
+    /**
+     * 查询用户参与的社团
+     * @param userId 用户ID
+     * @return 社团列表
+     */
+    @Select("<script>" +
+            "SELECT t.name " +
+            "FROM teams t " +
+            "WHERE t.id IN (" +
+            "   SELECT al.team_id " +
+            "   FROM apply_logs al " +
+            "   WHERE al.user_id = #{userId} AND al.status = 1" +
+            ") "+
+            "ORDER BY t.create_time DESC " +
+            "</script>")
+    List<Map<String, Object>> getUserClubs(@Param("userId") String userId);
 
     /**
      * 分页查询申请记录
@@ -78,7 +96,7 @@ public interface ApplyLogsDao extends BaseMapper<ApplyLogs> {
             "ORDER BY al.create_time DESC " +
             "</script>")
     public Page<Map<String, Object>> qryManPageInfo(Page<Map<String, Object>> page,
-                                                 @Param("userId") String userId,
-                                                 @Param("teamName") String teamName,
-                                                 @Param("userName") String userName);
+                                                    @Param("userId") String userId,
+                                                    @Param("teamName") String teamName,
+                                                    @Param("userName") String userName);
 }

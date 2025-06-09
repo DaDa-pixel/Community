@@ -38,7 +38,15 @@
                 <span v-else>未填写</span>
               </el-descriptions-item>
               <el-descriptions-item label="所属社团">
-                {{ loginUser.club || '未加入' }}
+                <el-tag
+                    v-for="(club, index) in clubs"
+                    :key="index"
+                    size="small"
+                    type="success"
+                    class="club-tag"
+                >
+                  {{ club }}
+                </el-tag>
               </el-descriptions-item>
             </el-descriptions>
           </div>
@@ -73,7 +81,7 @@
         </el-card>
       </el-col>
       <el-col :span="16">
-        <!--  图 -->
+        <!-- 社团风采轮播图 -->
         <el-card shadow="hover">
           <div slot="header" class="card-header">
             <i class="el-icon-picture-outline"></i>
@@ -130,7 +138,7 @@
 </template>
 
 <script>
-import { getLoginUser, getSysNoticeList } from "@/api";
+import {getLoginUser, getSysNoticeList,  getUserClubs} from "@/api";
 import club1 from '@/assets/images/img.png';
 import club2 from '@/assets/images/img_1.png';
 import club3 from '@/assets/images/img_2.png';
@@ -143,6 +151,7 @@ export default {
     return {
       loginUser: {},
       sysNotices: [],
+      clubs:[],
       currentDate: this.formatDate(new Date()),
       clubGallery: [
         {
@@ -156,7 +165,7 @@ export default {
           description: '年度迎新晚会精彩瞬间'
         },
         {
-          image: club3,
+          image:club3,
           title: '社团比赛',
           description: '校内社团比赛获奖合影'
         },
@@ -182,9 +191,15 @@ export default {
   },
   methods: {
     fetchData() {
+      console.log("当前Token:", this.$store.state.token);
       getLoginUser(this.$store.state.token).then(resp => {
         this.loginUser = resp.data;
+        console.log("实际查询的用户ID:", this.loginUser.id);
       });
+      getUserClubs(1749004411057).then(resp=>{
+        this.clubs=resp.data;
+        console.log("得到社团名称",this.clubs)
+      })
 
       getSysNoticeList(this.$store.state.token).then(resp => {
         this.sysNotices = resp.data;

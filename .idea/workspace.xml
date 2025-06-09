@@ -5,7 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f587ab8d-e935-46a3-9a54-56f003f6914b" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/controller/ApplyLogsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/controller/ApplyLogsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/dao/ApplyLogsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/dao/ApplyLogsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/msg/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/msg/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/service/ApplyLogsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/service/ApplyLogsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/service/MembersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/service/MembersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/service/impl/ApplyLogsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/self/cases/teams/service/impl/ApplyLogsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/ActiveLogsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/ActiveLogsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/ActivitiesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/ActivitiesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/ApplyLogsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/ApplyLogsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/BaseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/BaseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/MembersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/MembersController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/NoticesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/NoticesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/PayLogsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/PayLogsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/TeamTypesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/TeamTypesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/TeamsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/TeamsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/UsersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/controller/UsersController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/dao/ApplyLogsDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/dao/ApplyLogsDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/msg/R.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/msg/R.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/ApplyLogsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/ApplyLogsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/MembersService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/MembersService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/impl/ApplyLogsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/impl/ApplyLogsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/impl/MembersServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/target/classes/self/cases/teams/service/impl/MembersServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,31 +65,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Community_SY/client/src/components&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\86189\\IntelliJ IDEA 2023.2.5\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/Community_SY/client/src/components",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "C:\\Users\\86189\\IntelliJ IDEA 2023.2.5\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Community_SY\client\src\components" />
@@ -129,7 +158,8 @@
       <workItem from="1749310176280" duration="1812000" />
       <workItem from="1749363080146" duration="12320000" />
       <workItem from="1749376251026" duration="2511000" />
-      <workItem from="1749382921324" duration="4210000" />
+      <workItem from="1749382921324" duration="9011000" />
+      <workItem from="1749430659949" duration="11294000" />
     </task>
     <servers />
   </component>

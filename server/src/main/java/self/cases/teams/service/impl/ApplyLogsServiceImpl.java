@@ -17,6 +17,7 @@ import self.cases.teams.dao.ApplyLogsDao;
 import self.cases.teams.service.ApplyLogsService;
 import self.cases.teams.utils.DateUtils;
 import self.cases.teams.utils.IDUtils;
+import self.cases.teams.dao.MembersDao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,6 +113,7 @@ public class ApplyLogsServiceImpl implements ApplyLogsService {
         return parsePage(page);
     }
 
+
     /**
      * 转化分页查询的结果
      */
@@ -120,5 +122,11 @@ public class ApplyLogsServiceImpl implements ApplyLogsService {
         PageData pageData = new PageData(p.getCurrent(), p.getSize(), p.getTotal(), p.getRecords());
 
         return pageData;
+    }
+
+    @Override
+    public List<Map<String, Object>> getUserClubs(String userId) {
+        List<Map<String, Object>> result = applyLogsDao.getUserClubs(userId);
+        return result;
     }
 }

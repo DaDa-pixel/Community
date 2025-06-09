@@ -1,5 +1,11 @@
 import http from "../utils/http.js";
 
+// 返回用户参与的社团
+export function getUserClubs(userId) {
+	return http.get('/applyLogs/userClubs', {params: {userId: userId}});
+}
+
+
 /** 系统请求地址 */
 export function getSysNoticeList(token){
 	

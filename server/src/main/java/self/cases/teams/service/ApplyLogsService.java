@@ -4,6 +4,9 @@ import self.cases.teams.msg.PageData;
 
 import self.cases.teams.entity.ApplyLogs;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 业务层处理
  * 申请记录
@@ -39,4 +42,18 @@ public interface ApplyLogsService extends BaseService<ApplyLogs, String> {
 	 * @return
 	 */
 	public PageData getPageInfo(Long pageIndex, Long pageSize, String userId, String teamName, String userName);
+
+		/**
+		 * 获取用户参与的社团名称列表
+		 * @param userId 用户ID
+		 * @return 社团名称列表
+		 */
+
+		/**
+				* 获取用户参与的社团列表
+     * @param userId 用户ID
+     * @return 包含社团信息的Map列表
+     */
+	public   List<Map<String, Object>> getUserClubs(String userId);
+
 }

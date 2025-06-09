@@ -38,4 +38,7 @@ public interface MembersService extends BaseService<Members, String> {
 	 * @return
 	 */
 	public PageData getPageByManId(Long pageIndex, Long pageSize, String manId, String teamName, String userName);
+
+
+
 }
